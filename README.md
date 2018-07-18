@@ -41,6 +41,7 @@ Roll pitch control generates outputs of p and q commands that feeds into body ra
 Firstly, convert local accelerations, accelCmd (accelerations in global XY coordinates), into desired rate of local change through following equations.
 
 ![eq2](http://latex.codecogs.com/gif.latex?%24%24%5Cdot%7Bb%7D%5Ex_c%20%3D%20k_p%28b%5Ex_c%20-%20b%5Ex_a%29%24%24)
+
 ![eq3](http://latex.codecogs.com/gif.latex?%24%24%5Cdot%7Bb%7D%5Ey_c%20%3D%20k_p%28b%5Ey_c%20-%20b%5Ey_a%29%24%24)
 
 Then pqr command can be computed based on non-linear transformation based on below equation.
@@ -50,32 +51,24 @@ Then pqr command can be computed based on non-linear transformation based on bel
 3. Implement altitude controller in C++.
 Based on inputs of pos and vel cmd in z, calculate z_err and z_err in velocity. Altitude controller uses PID formula to derive u1bar, and then compute acceleration in altitude by dividing with $b^z$. 
 
-$$c = \frac{(\bar{u}_1 - g)}{b^z}$$
+![eq5](http://latex.codecogs.com/gif.latex?%24%24c%20%3D%20%5Cfrac%7B%28%5Cbar%7Bu%7D_1%20-%20g%29%7D%7Bb%5Ez%7D%24%24)
 
 
 4. Implement lateral position control in C++.
 Lateral Position control calculates pos and vel error from current pos/vel with target pos/val and uses the error to derive local acceleration in x,y.
-$$\ddot{x}_{\text{command}} =  k^x_p(x_t-x_a) + k_d^x(\dot{x}_t - \dot{x}_a)+ \ddot{x}_t$$
+![eq6](http://latex.codecogs.com/gif.latex?%24%24%5Cddot%7Bx%7D_%7B%5Ctext%7Bcommand%7D%7D%20%3D%20k%5Ex_p%28x_t-x_a%29%20&plus;%20k_d%5Ex%28%5Cdot%7Bx%7D_t%20-%20%5Cdot%7Bx%7D_a%29&plus;%20%5Cddot%7Bx%7D_t%24%24)
 
 
 5. Implement yaw control in C++.
 Yaw control is decoupled from other directions through below equation:
-$r_c = k_p (\psi_t - \psi_a)$
+![eq7](http://latex.codecogs.com/gif.latex?%24%24r_c%20%3D%20k_p%20%28%5Cpsi_t%20-%20%5Cpsi_a%29%24%24)
 
 yaw command is optimized by setting it to be between $[0, 2\pi]$.
 
 6. Implement calculating the motor commands given commanded thrust and moments in C++.
 In GenerateMotorCommands, the moment command and thrust gets converted into individual thrustN.
 This is done by getting uBar, pBar, qBar, rBar and deciiding which wings needs how much thrust forces in order to meet those.
-
-$$
-\begin{align}
-F_{total} &= F_1 + F_2 + F_3 + F_4 \\
-\tau_x &= (F_1 + F_4 - F_2 - F_3)l \\
-\tau_y &= (F_1 + F_2 - F_3 - F_4)l \\
-\tau_z &= \tau_1 + \tau_2 + \tau_3 + \tau_4
-\end{align}
-$$
+![eq8](http://latex.codecogs.com/gif.latex?%24%24%20%5Cbegin%7Balign%7D%20F_%7Btotal%7D%20%26%3D%20F_1%20&plus;%20F_2%20&plus;%20F_3%20&plus;%20F_4%20%5C%5C%20%5Ctau_x%20%26%3D%20%28F_1%20&plus;%20F_4%20-%20F_2%20-%20F_3%29l%20%5C%5C%20%5Ctau_y%20%26%3D%20%28F_1%20&plus;%20F_2%20-%20F_3%20-%20F_4%29l%20%5C%5C%20%5Ctau_z%20%26%3D%20%5Ctau_1%20&plus;%20%5Ctau_2%20&plus;%20%5Ctau_3%20&plus;%20%5Ctau_4%20%5Cend%7Balign%7D%20%24%24)
 
 ## Passed scenario tests ## 
 
