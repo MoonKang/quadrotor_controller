@@ -40,14 +40,12 @@ BodyRateControl converts the errors into desired moment command, and the result 
 Roll pitch control generates outputs of p and q commands that feeds into body rate control. This process involves transformation of world frame into body frame. 
 Firstly, convert local accelerations, accelCmd (accelerations in global XY coordinates), into desired rate of local change through following equations.
 
-$\dot{b}^x_c  = k_p(b^x_c - b^x_a)$
-$\dot{b}^y_c  = k_p(b^y_c - b^y_a)$
+![eq2](http://latex.codecogs.com/gif.latex?%24%24%5Cdot%7Bb%7D%5Ex_c%20%3D%20k_p%28b%5Ex_c%20-%20b%5Ex_a%29%24%24)
+![eq3](http://latex.codecogs.com/gif.latex?%24%24%5Cdot%7Bb%7D%5Ey_c%20%3D%20k_p%28b%5Ey_c%20-%20b%5Ey_a%29%24%24)
 
 Then pqr command can be computed based on non-linear transformation based on below equation.
 
-$$
-\begin{pmatrix} p_c \\ q_c \\ \end{pmatrix}  = \frac{1}{R_{33}}\begin{pmatrix} R_{21} & -R_{11} \\ R_{22} & -R_{12} \end{pmatrix} \times \begin{pmatrix} \dot{b}^x_c \\ \dot{b}^y_c  \end{pmatrix} 
-$$
+![eq4](http://latex.codecogs.com/gif.latex?%24%24%20%5Cbegin%7Bpmatrix%7D%20p_c%20%5C%5C%20q_c%20%5C%5C%20%5Cend%7Bpmatrix%7D%20%3D%20%5Cfrac%7B1%7D%7BR_%7B33%7D%7D%5Cbegin%7Bpmatrix%7D%20R_%7B21%7D%20%26%20-R_%7B11%7D%20%5C%5C%20R_%7B22%7D%20%26%20-R_%7B12%7D%20%5Cend%7Bpmatrix%7D%20%5Ctimes%20%5Cbegin%7Bpmatrix%7D%20%5Cdot%7Bb%7D%5Ex_c%20%5C%5C%20%5Cdot%7Bb%7D%5Ey_c%20%5Cend%7Bpmatrix%7D%20%24%24)
 
 3. Implement altitude controller in C++.
 Based on inputs of pos and vel cmd in z, calculate z_err and z_err in velocity. Altitude controller uses PID formula to derive u1bar, and then compute acceleration in altitude by dividing with $b^z$. 
