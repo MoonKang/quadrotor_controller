@@ -25,9 +25,6 @@ The syntax of the config files is as follows:
 
 You will also be using the simulator to fly some difference trajectories to test out the performance of your C++ implementation of your controller. These trajectories, along with supporting code, are found in the `traj` directory of the repo.
 
-<p align="center">
-<img src="./scenario5.gif" width="500"/>
-</p>
 
 ## The Tasks ##
 
@@ -93,4 +90,8 @@ $$
 ![alt text][image2]
 ![alt text][image3]
 
+
+<p align="center">
+<img src="./scenario5.gif" width="500"/>
+</p>
 
