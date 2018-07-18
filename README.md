@@ -33,14 +33,8 @@ You will also be using the simulator to fly some difference trajectories to test
 1. Implemented body rate control in C++.
 Based on inputs of pqr command and current pqr, the body rate error is calculated and is multiplied by moments of inertia and KpPQR.
 BodyRateControl converts the errors into desired moment command, and the result gets passed to GenerateMotorCommands.
-$$
-\begin{align}
-\bar{u}_p &= k_{p-p} p_{\text{error}} \\
-\bar{u}_q &= k_{p-q} q_{\text{error}} \\
-\bar{u}_r &= k_{p-r} r_{\text{error}}
-\end{align}
-$$
 
+![eq1](http://latex.codecogs.com/gif.latex?%24%24%20%5Cbegin%7Balign%7D%20%5Cbar%7Bu%7D_p%20%26%3D%20k_%7Bp-p%7D%20*%20p_%7B%5Ctext%7Berror%7D%7D%20%5C%5C%20%5Cbar%7Bu%7D_q%20%26%3D%20k_%7Bp-q%7D%20*%20q_%7B%5Ctext%7Berror%7D%7D%20%5C%5C%20%5Cbar%7Bu%7D_r%20%26%3D%20k_%7Bp-r%7D%20*%20r_%7B%5Ctext%7Berror%7D%7D%20%5Cend%7Balign%7D%20%24%24) 
 
 2. Implement roll pitch control in C++.
 Roll pitch control generates outputs of p and q commands that feeds into body rate control. This process involves transformation of world frame into body frame. 
