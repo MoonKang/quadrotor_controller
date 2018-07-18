@@ -56,11 +56,13 @@ Based on inputs of pos and vel cmd in z, calculate z_err and z_err in velocity. 
 
 4. Implement lateral position control in C++.
 Lateral Position control calculates pos and vel error from current pos/vel with target pos/val and uses the error to derive local acceleration in x,y.
+
 ![eq6](http://latex.codecogs.com/gif.latex?%24%24%5Cddot%7Bx%7D_%7B%5Ctext%7Bcommand%7D%7D%20%3D%20k%5Ex_p%28x_t-x_a%29%20&plus;%20k_d%5Ex%28%5Cdot%7Bx%7D_t%20-%20%5Cdot%7Bx%7D_a%29&plus;%20%5Cddot%7Bx%7D_t%24%24)
 
 
 5. Implement yaw control in C++.
 Yaw control is decoupled from other directions through below equation:
+
 ![eq7](http://latex.codecogs.com/gif.latex?%24%24r_c%20%3D%20k_p%20%28%5Cpsi_t%20-%20%5Cpsi_a%29%24%24)
 
 yaw command is optimized by setting it to be between $[0, 2\pi]$.
@@ -68,6 +70,7 @@ yaw command is optimized by setting it to be between $[0, 2\pi]$.
 6. Implement calculating the motor commands given commanded thrust and moments in C++.
 In GenerateMotorCommands, the moment command and thrust gets converted into individual thrustN.
 This is done by getting uBar, pBar, qBar, rBar and deciiding which wings needs how much thrust forces in order to meet those.
+
 ![eq8](http://latex.codecogs.com/gif.latex?%24%24%20%5Cbegin%7Balign%7D%20F_%7Btotal%7D%20%26%3D%20F_1%20&plus;%20F_2%20&plus;%20F_3%20&plus;%20F_4%20%5C%5C%20%5Ctau_x%20%26%3D%20%28F_1%20&plus;%20F_4%20-%20F_2%20-%20F_3%29l%20%5C%5C%20%5Ctau_y%20%26%3D%20%28F_1%20&plus;%20F_2%20-%20F_3%20-%20F_4%29l%20%5C%5C%20%5Ctau_z%20%26%3D%20%5Ctau_1%20&plus;%20%5Ctau_2%20&plus;%20%5Ctau_3%20&plus;%20%5Ctau_4%20%5Cend%7Balign%7D%20%24%24)
 
 ## Passed scenario tests ## 
